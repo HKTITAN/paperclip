@@ -92,4 +92,4 @@ We're proposing `ollama launch paperclip` mirroring the existing `codex` /
 [`launch-paperclip.go.md`](./launch-paperclip.go.md) for the proposed file
 content and registry entry.
 
-Tracking: <!-- TODO: link to ollama/ollama issue once opened -->
+Tracking: [ollama/ollama#15976](https://github.com/ollama/ollama/issues/15976)
