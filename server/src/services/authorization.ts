@@ -958,6 +958,28 @@ export function authorizationService(db: Db) {
         }
       }
       if (!permissionKey) {
+        if (
+          input.action === "agent:read" ||
+          input.action === "company_scope:read" ||
+          input.action === "issue:read" ||
+          input.action === "project:read" ||
+          input.action === "runtime:manage" ||
+          input.action === "secrets:read"
+        ) {
+          const membership = await getActiveMembership(companyId, "user", input.actor.userId);
+          if (membership) {
+            return allow({
+              action: input.action,
+              reason: "allow_simple_company_member",
+              explanation: "Allowed by standard same-company board membership visibility.",
+            });
+          }
+          return deny({
+            action: input.action,
+            reason: "deny_missing_membership",
+            explanation: `user principal ${input.actor.userId} is not an active member of company ${companyId}.`,
+          });
+        }
         return deny({
           action: input.action,
           reason: "deny_unsupported_action",
