@@ -957,6 +957,7 @@ export function createPluginWorkerHandle(
     setStatus("starting");
     stderrExcerpt = "";
     echoesInvocationScope = false;
+    legacyInvocationScopeWarned = false;
 
     const child = spawnProcess();
     childProcess = child;
